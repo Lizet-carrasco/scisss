@@ -1,0 +1,1 @@
+<?phpsession_start();if(!isset($_SESSION['name'])){//if(!session_is_registered(user)){        //header("location:adiestra/www.adiestra.pe/login.php");        header("location:login.php");}?><a href=reportes/planilla_proveedores.xls>Descargar Planilla Proveedores</a>

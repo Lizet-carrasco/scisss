@@ -1,0 +1,118 @@
+<?php
+
+//define( 'DVWA_WEB_PAGE_TO_ROOT', '' );
+//require_once DVWA_WEB_PAGE_TO_ROOT.'dvwa/dvwa/includes/dvwaPage.inc.php';
+
+//dvwaDatabaseConnect();
+
+$handler = mysqli_connect('localhost', 'root' , 'aicila97');
+mysqli_select_db($handler,'acme'); 
+
+
+if( isset( $_POST[ 'Login' ] ) ) {
+
+	//if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+	//     exit();
+	//
+
+	$user = $_POST['username'];
+	$pass = $_POST['password'];
+	//$pass = md5( $pass );
+
+	$qry = "SELECT * FROM `unica` WHERE usuario='$user' AND password='$pass';";
+
+	$result = @mysqli_query($handler, $qry) or die('<pre>' . mysqli_error($handler) . '</pre>' );
+
+	if( $result && mysqli_num_rows( $result ) >= 1 ) {	// Login Successful...
+
+		//echo  "You have logged in as '".$user."'";
+		//session_register("user");
+		//$sesion="ok";
+		session_start();
+		$_SESSION['name'] = $user;
+		$_SESSION['antiloginbypass'] = "1";
+		//echo "En login.php '".$_SESSION['name']."'";
+
+		header ('Location: consulta.php');	// Vuln: SQLi Error
+		//header ('Location: report.php');	// Vuln: Webshell
+		//header ('Location: consulta2.php');	// Vuln: SQLi Blind
+		exit();
+
+	}
+        else echo "Login failed";
+}
+
+
+//$messagesHtml = messagesPopAllToHtml();
+
+Header( 'Cache-Control: no-cache, must-revalidate');		// HTTP/1.1
+Header( 'Content-Type: text/html;charset=utf-8' );		// TODO- proper XHTML headers...
+Header( "Expires: Tue, 23 Jun 2009 12:00:00 GMT");		// Date in the past
+
+echo "
+
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">
+
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+
+	<head>
+
+		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
+
+		<title>ACME Corporation - Login</title>
+
+		<link rel=\"stylesheet\" type=\"text/css\" href=\"dvwa/dvwa/css/login.css\" />
+
+	</head>
+
+	<body>
+
+	<div align=\"center\">
+	
+	<br />
+
+	<p> <img src=\"http://acme.open-sec.com/acme/ACME.png\" width=\"128\" height=\"128\"> </p> 
+
+	<br />
+	
+	<form action=\"login.php\" method=\"post\">
+	
+	<fieldset>
+
+			<label for=\"user\">Username</label> <input type=\"text\" class=\"loginInput\" size=\"20\" name=\"username\"><br />
+	
+			
+			<label for=\"pass\">Password</label> <input type=\"password\" class=\"loginInput\" AUTOCOMPLETE=\"off\" size=\"20\" name=\"password\"><br />
+			
+			
+			<p class=\"submit\"><input type=\"submit\" value=\"Login\" name=\"Login\"></p>
+
+	</fieldset>
+
+	</form>
+
+	
+	<br />
+
+
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />	
+
+	
+<!--	<p>Damn Vulnerable Web Application (DVWA) is a RandomStorm OpenSource project</p> --!>
+	
+	</div> <!-- end align div -->
+
+	</body>
+
+</html>
+";
+
+mysqli_close($handler);
+?>
